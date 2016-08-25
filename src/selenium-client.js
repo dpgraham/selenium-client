@@ -125,6 +125,34 @@ SeleniumClient.prototype.findElementByCSS = function(selector, onSuccess, onFail
 };
 
 
+/**
+ * Adds characters to an element
+ * @param elementId
+ * @param value
+ * @param onSuccess
+ * @param onFailure
+ */
+SeleniumClient.prototype.inputElement = function(elementId, value, onSuccess, onFailure){
+    onSuccess = onSuccess || function(){};
+    onFailure = onFailure || function(){};
+
+    console.log("Inputting into element", elementId, "value", value);
+
+    var url = this.url + '/' + this.sessionId + '/element/' + elementId + '/value';
+    var formData = {"value": value.split('')};
+
+    request.post(url, {form: JSON.stringify(formData)}, function(error, response, body){
+        if (!error && response.statusCode == 200) {
+            var data = JSON.parse(body);
+            onSuccess(data.value.ELEMENT);
+        } else {
+            onFailure();
+        }
+    });
+
+};
+
+
 
 
 module.exports = SeleniumClient;
