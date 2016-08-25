@@ -1,7 +1,6 @@
 var minimist = require('minimist');
 
-var SeleniumClient = function(){
-
+// Expose the libraries as an API
+module.exports = {
+    Session: require('./src/session'),
 };
-
-module.exports = SeleniumClient;

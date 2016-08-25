@@ -4,7 +4,7 @@
   "description": "A NodeJS client for selenium",
   "main": "selenium-client.js",
   "scripts": {
-    "test": "npm test"
+    "test": "mocha ./test --timeout 10000"
   },
   "keywords": [
     "selenium",
@@ -17,6 +17,7 @@
   "author": "Daniel Graham",
   "license": "MIT",
   "devDependencies": {
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.0",
+    "request": "^2.74.0"
   }
 }
