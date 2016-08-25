@@ -20,5 +20,6 @@
     "assert": "^1.4.1",
     "minimist": "^1.2.0",
     "request": "^2.74.0"
-  }
+  },
+  "main": "src/selenium-client.js"
 }
