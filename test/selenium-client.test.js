@@ -1,4 +1,5 @@
 var Session = require('../src/selenium-client');
+var assert = require('assert');
 
 describe('when using client', function(){
 
@@ -7,9 +8,16 @@ describe('when using client', function(){
 
         session.create(function(){
             session.navigateTo('http://www.google.com', function(){
-                session.close(function(){
-                    console.log('closed session');
-                    done();
+                session.getTitle(function(title){
+                    assert.equal(title, 'Google');
+
+                    session.findElementByCSS('input[type=text]', function(value){
+                        console.log("found it!", value);
+                        session.close(function(){
+                            console.log('closed session');
+                            done();
+                        });
+                    });
                 });
             });
         });

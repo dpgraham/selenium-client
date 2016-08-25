@@ -78,6 +78,52 @@ SeleniumClient.prototype.navigateTo = function(url, onSuccess, onFailure){
     })
 };
 
+/**
+ * Gets the title of the current session
+ * @param onSuccess
+ * @param onFailure
+ */
+SeleniumClient.prototype.getTitle = function(onSuccess, onFailure){
+    onSuccess = onSuccess || function(){};
+    onFailure = onFailure || function(){};
+
+    console.log('Getting the title');
+    request.get(this.url + '/' + this.sessionId + '/title', function(error, response, body){
+        if (!error && response.statusCode == 200) {
+            var data = JSON.parse(body);
+            onSuccess(data.value);
+        } else {
+            onFailure();
+        }
+    });
+
+};
+
+/**
+ * Get an element by the CSS selector and returns it's element ID
+ * @param selector {string}
+ * @param onSuccess
+ * @param onFailure
+ */
+SeleniumClient.prototype.findElementByCSS = function(selector, onSuccess, onFailure){
+    onSuccess = onSuccess || function(){};
+    onFailure = onFailure || function(){};
+
+    var formData = {"using": "css selector", "value": selector};
+    console.log("Finding", selector);
+
+
+    request.post(this.url + '/' + this.sessionId + '/element', {form: JSON.stringify(formData)}, function(error, response, body){
+        if (!error && response.statusCode == 200) {
+            var data = JSON.parse(body);
+            onSuccess(data.value.ELEMENT);
+        } else {
+            onFailure();
+        }
+    });
+
+};
+
 
 
 
