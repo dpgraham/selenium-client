@@ -43,16 +43,42 @@ SeleniumClient.prototype.close = function(onSuccess, onFailure){
 
     console.log('Closing session', this.sessionId);
 
+    var ctx = this;
     request.delete(this.url + '/' + this.sessionId, function(error, response, body){
-        console.log('response', response.statusCode);
         if (!error && response.statusCode == 200) {
-            console.log('Closed the session', this.sessionId);
+            console.log('Closed the session', ctx.sessionId);
             onSuccess();
         } else {
             onFailure();
         }
     });
 };
+
+/**
+ * Navigates the session to a url
+ * @param url {String} The URL to navigate to
+ * @param onSuccess {function}
+ * @param onFailure {function}
+ */
+SeleniumClient.prototype.navigateTo = function(url, onSuccess, onFailure){
+    onSuccess = onSuccess || function(){};
+    onFailure = onFailure || function(){};
+
+    var formData = {"url": url};
+    console.log('Navigating to', url, formData, this.url + '/' + this.sessionId + '/' + url);
+
+    request.post(this.url + '/' + this.sessionId + '/url', {form: JSON.stringify(formData)}, function(error, response, body){
+        console.log(response.statusCode);
+        if (!error && response.statusCode == 200) {
+            console.log('Navigated to', url);
+            onSuccess();
+        } else {
+            onFailure();
+        }
+    })
+};
+
+
 
 
 module.exports = SeleniumClient;

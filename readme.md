@@ -7,5 +7,4 @@ Requirements
 
 TODO
 =============
--Can open a new session
 -Can set URL via command line paramaters
