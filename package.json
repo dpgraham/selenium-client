@@ -15,5 +15,8 @@
     "saucelabs"
   ],
   "author": "Daniel Graham",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "minimist": "^1.2.0"
+  }
 }
