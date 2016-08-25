@@ -144,7 +144,26 @@ SeleniumClient.prototype.inputElement = function(elementId, value, onSuccess, on
     request.post(url, {form: JSON.stringify(formData)}, function(error, response, body){
         if (!error && response.statusCode == 200) {
             var data = JSON.parse(body);
-            onSuccess(data.value.ELEMENT);
+            onSuccess();
+        } else {
+            onFailure();
+        }
+    });
+
+};
+
+SeleniumClient.prototype.clickElement = function(elementId, onSuccess, onFailure){
+    onSuccess = onSuccess || function(){};
+    onFailure = onFailure || function(){};
+
+    console.log("Clicking", elementId);
+
+    var url = this.url + '/' + this.sessionId + '/element/' + elementId + '/click';
+
+    request.post(url, function(error, response, body){
+        if (!error && response.statusCode == 200) {
+            var data = JSON.parse(body)
+            onSuccess();
         } else {
             onFailure();
         }
