@@ -1,0 +1,19 @@
+{
+  "name": "selenium-client-js",
+  "version": "1.0.0",
+  "description": "A NodeJS client for selenium",
+  "main": "selenium-client.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "selenium",
+    "node",
+    "js",
+    "javascript",
+    "client",
+    "saucelabs"
+  ],
+  "author": "Daniel Graham",
+  "license": "MIT"
+}
