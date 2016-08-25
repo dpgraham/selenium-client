@@ -152,6 +152,12 @@ SeleniumClient.prototype.inputElement = function(elementId, value, onSuccess, on
 
 };
 
+/**
+ * Click on an element at the given ID
+ * @param elementId
+ * @param onSuccess
+ * @param onFailure
+ */
 SeleniumClient.prototype.clickElement = function(elementId, onSuccess, onFailure){
     onSuccess = onSuccess || function(){};
     onFailure = onFailure || function(){};
@@ -168,7 +174,30 @@ SeleniumClient.prototype.clickElement = function(elementId, onSuccess, onFailure
             onFailure();
         }
     });
+};
 
+/**
+ * Get text of an element
+ * @param elementId
+ * @param onSuccess
+ * @param onFailure
+ */
+SeleniumClient.prototype.getText = function(elementId, onSuccess, onFailure){
+    onSuccess = onSuccess || function(){};
+    onFailure = onFailure || function(){};
+
+    var url = this.url + '/' + this.sessionId + '/element/' + elementId + '/text';
+
+    console.log("Getting text for", elementId, url);
+
+    request.get(url, function(error, response, body){
+        if (!error && response.statusCode == 200) {
+            var data = JSON.parse(body)
+            onSuccess(data.value);
+        } else {
+            onFailure();
+        }
+    });
 };
 
 

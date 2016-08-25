@@ -11,7 +11,14 @@ describe('when using client', function(){
                 console.log('closed session');
                 done();
             });
-        }
+        };
+
+        var onFail = function(){
+            session.close(function () {
+                console.log('closed session');
+                assert.equal('An API error occurred', true, false);
+            });
+        };
 
         session.create(function(){
             session.navigateTo('http://www.google.com', function(){
@@ -22,14 +29,22 @@ describe('when using client', function(){
                         session.inputElement(inputElId, 'foo', function(){
                             session.findElementByCSS('button', function(submitElId){
                                 session.clickElement(submitElId, function(){
-                                    onDone();
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        });
+                                    setTimeout(function(){
+                                        console.log('finding div.srg');
+                                        session.findElementByCSS('div.srg', function(searchResultsID){
+                                            session.getText(searchResultsID, function(text){
+                                                assert.equal(text.indexOf('foo') >= 0, true);
+                                                onDone();
+                                            }, onFail);
+                                        }, function(){ console.log('didnt find it')});
+                                    }, 3000);
+                                }, onFail);
+                            }, onFail);
+                        }, onFail);
+                    }, onFail);
+                }, onFail);
+            }, onFail);
+        }, onFail);
     });
 
 });
