@@ -1,6 +1,8 @@
 SELENIUM JS CLIENT
 ========================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/dpgraham/selenium-client.svg)](https://greenkeeper.io/)
+
 Requirements
 =============
 
